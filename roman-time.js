@@ -1,6 +1,11 @@
 function toRoman (number) {
   var romanNumber = "";
 
+  if (number == 0) {
+    romanNumber += '-'
+    return romanNumber;
+  }
+
   var numL = parseInt(number / 50);
   number -= numL*50;
   romanNumber = appendSymbols(romanNumber, 'L', numL);
@@ -44,7 +49,8 @@ function toAsciiGraphics (string) {
     'V' : {0:' V    V ', 1:' V    V ', 2:' V    V ', 3:'  V  V  ', 4:'   VV   '},
     'X' : {0:' X    X ', 1:'  X  X  ', 2:'   XX   ', 3:'  X  X  ', 4:' X    X '},
     'L' : {0:' L      ', 1:' L      ', 2:' L      ', 3:' L    L ', 4:' LLLLLL '},
-    ':' : {0:'   ::   ', 1:'   ::   ', 2:'        ', 3:'   ::   ', 4:'   ::   '}
+    ':' : {0:'   ::   ', 1:'   ::   ', 2:'        ', 3:'   ::   ', 4:'   ::   '},
+    '-' : {0:'        ', 1:'        ', 2:' ------ ', 3:'        ', 4:'        '}
   };
 
   var asciiString = "";
