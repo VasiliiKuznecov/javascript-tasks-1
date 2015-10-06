@@ -67,10 +67,21 @@ function toAsciiGraphics (string) {
 var hours = process.argv[2];
 var minutes = process.argv[3];
 
+var invalidTime = false;
+
+if (parseInt(hours) != hours || parseInt(minutes) != minutes) {
+  invalidTime = true;
+}
+
 if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+  invalidTime = true;
+}
+
+if (invalidTime) {
   console.log('Время указано не верно');
   return;
 }
+
 
 console.log(toAsciiGraphics(toRoman(hours)+':'+toRoman(minutes)));
 return;
