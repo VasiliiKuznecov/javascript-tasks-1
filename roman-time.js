@@ -4,6 +4,11 @@ function toRoman (number) {
   var numL = parseInt(number / 50);
   number -= numL*50;
   romanNumber = appendSymbols(romanNumber, 'L', numL);
+  if (number >= 40) {
+    number -= 40;
+    romanNumber += 'XL';
+  }
+
 
   var numX = parseInt(number / 10);
   number -= numX*10;
@@ -11,7 +16,6 @@ function toRoman (number) {
   if (number%10 == 9) {
     number -= 9;
     romanNumber += 'IX';
-    return romanNumber;
   }
 
   var numV = parseInt(number / 5);
@@ -20,7 +24,6 @@ function toRoman (number) {
   if (number%5 == 4) {
     number -= 4;
     romanNumber += 'IV';
-    return romanNumber;
   }
 
   var numI = number;
