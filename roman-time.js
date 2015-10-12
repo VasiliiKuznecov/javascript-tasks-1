@@ -8,7 +8,7 @@ function toRoman (number) {
 
     var numL = parseInt(number / 50);
     number -= numL*50;
-    romanNumber = appendSymbols(romanNumber, 'L', numL);
+    romanNumber = repeatSymbol('L', numL);
     if (number >= 40) {
         number -= 40;
         romanNumber += 'XL';
@@ -17,7 +17,7 @@ function toRoman (number) {
 
     var numX = parseInt(number / 10);
     number -= numX*10;
-    romanNumber = appendSymbols(romanNumber, 'X', numX);
+    romanNumber += repeatSymbol('X', numX);
     if (number%10 == 9) {
         number -= 9;
         romanNumber += 'IX';
@@ -25,22 +25,23 @@ function toRoman (number) {
 
     var numV = parseInt(number / 5);
     number -= numV*5;
-    romanNumber = appendSymbols(romanNumber, 'V', numV);
+    romanNumber += repeatSymbol('V', numV);
     if (number%5 == 4) {
         number -= 4;
         romanNumber += 'IV';
     }
 
     var numI = number;
-    romanNumber = appendSymbols(romanNumber, 'I', numI);
+    romanNumber += repeatSymbol('I', numI);
     return romanNumber;
 }
 
-function appendSymbols (string, symbol, number) {
-        for (var i = 0 ; i < number ; i++) {
-            string += symbol;
-        }
-        return string;
+function repeatSymbol(symbol, number) {
+    var result = '';
+    for (var i = 0; i < number; i++) {
+        result += symbol;
+    }
+    return result;
 }
 
 function toAsciiGraphics (string) {
