@@ -1,38 +1,27 @@
 function toRoman (number) {
-    var romanNumber = "";
+    var romanNumber = '';
 
     if (number == 0) {
         romanNumber += '-';
         return romanNumber;
     }
 
-    var numL = parseInt(number / 50);
-    number -= numL*50;
-    romanNumber = repeatSymbol('L', numL);
-    if (number >= 40) {
-        number -= 40;
-        romanNumber += 'XL';
+    var romanDigits = [
+        {value: 50, character: 'L'},
+        {value: 40, character: 'XL'},
+        {value: 10, character: 'X'},
+        {value: 9, character: 'IX'},
+        {value: 5, character: 'V'},
+        {value: 4, character: 'IV'},
+        {value: 1, character: 'I'}
+    ];
+
+    for (var i = 0; i < romanDigits.length; i++) {
+        var charactersCount = parseInt(number / romanDigits[i].value);
+        romanNumber += repeatSymbol(romanDigits[i].character, charactersCount);
+        number -= charactersCount*romanDigits[i].value;
     }
 
-
-    var numX = parseInt(number / 10);
-    number -= numX*10;
-    romanNumber += repeatSymbol('X', numX);
-    if (number%10 == 9) {
-        number -= 9;
-        romanNumber += 'IX';
-    }
-
-    var numV = parseInt(number / 5);
-    number -= numV*5;
-    romanNumber += repeatSymbol('V', numV);
-    if (number%5 == 4) {
-        number -= 4;
-        romanNumber += 'IV';
-    }
-
-    var numI = number;
-    romanNumber += repeatSymbol('I', numI);
     return romanNumber;
 }
 
@@ -54,9 +43,9 @@ function toAsciiGraphics (string) {
         '-' : {0:'        ', 1:'        ', 2:' ------ ', 3:'        ', 4:'        '}
     };
 
-    var asciiString = "";
+    var asciiString = '';
 
-    for (var i = 0 ; i < 5 ; i++) {
+    for (var i = 0; i < 5; i++) {
         for (var j = 0; j < string.length; j++) {
             asciiString += asciiGraphics[string[j]][i];
         }
@@ -70,7 +59,9 @@ var minutes = process.argv[3];
 
 var invalidTime = false;
 
-if (parseInt(hours) != hours || parseInt(minutes) != minutes) {
+if (parseInt(hours, 10).toString() !== hours.toString() ||
+    parseInt(minutes, 10).toString() !== minutes.toString()
+) {
     invalidTime = true;
 }
 
@@ -83,5 +74,5 @@ if (invalidTime) {
     return;
 }
 
-console.log(toAsciiGraphics(toRoman(hours)+':'+toRoman(minutes)));
+console.log(toAsciiGraphics(toRoman(hours) + ':' + toRoman(minutes)));
 return;
